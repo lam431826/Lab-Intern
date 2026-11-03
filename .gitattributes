@@ -1,0 +1,8 @@
+* text=auto
+# Script chạy trong container / máy chủ Linux phải giữ LF
+*.sh text eol=lf
+backend/mvnw text eol=lf
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+*.xlsx binary
+*.jar binary

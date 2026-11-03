@@ -1,0 +1,22 @@
+# Bí mật
+.env
+*.env.local
+
+# Backend
+backend/target/
+backend/src/main/resources/static/
+*.log
+
+# Bản sao lưu database (chứa dữ liệu cá nhân ứng viên)
+backup/*
+!backup/.gitkeep
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.DS_Store
