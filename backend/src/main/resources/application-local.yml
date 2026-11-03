@@ -1,0 +1,14 @@
+# Chạy trên máy dev với SQL Server cài sẵn: ./mvnw spring-boot:run -Dspring-boot.run.profiles=local
+spring:
+  datasource:
+    url: jdbc:sqlserver://${DB_HOST:localhost}:${DB_PORT:1433};databaseName=${DB_NAME:dxlab_recruitment};encrypt=true;trustServerCertificate=${DB_TRUST_CERT:true};sendStringParametersAsUnicode=true
+  flyway:
+    # db/dev chứa dữ liệu MẪU, chỉ nạp ở máy dev.
+    locations: classpath:db/migration,classpath:db/dev
+    placeholders:
+      devAdminEmail: ${DEV_ADMIN_EMAIL:}
+
+logging:
+  level:
+    org.flywaydb: info
+    vn.dxlab.recruitment: debug

@@ -1,0 +1,13 @@
+# Datasource do Testcontainers cung cấp (SqlServerContainerConfig).
+spring:
+  flyway:
+    clean-disabled: false
+
+app:
+  clerk:
+    # Khớp với JwtFixtures; token test được ký bằng khóa RSA sinh lúc chạy test
+    issuer: https://test.clerk.local
+    authorized-parties: http://localhost:5173
+    secret-key: sk_test_dummy
+    # base64("dxlab-webhook-test-secret-0123456789")
+    webhook-secret: whsec_ZHhsYWItd2ViaG9vay10ZXN0LXNlY3JldC0wMTIzNDU2Nzg5
