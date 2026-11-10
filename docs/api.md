@@ -144,3 +144,25 @@ Mã lỗi nghiệp vụ: `SCORES_INCOMPLETE`, `DECISION_NOTE_REQUIRED`, `INVALID
 | Phương thức | Đường dẫn | Xác thực |
 |---|---|---|
 | POST | `/api/webhooks/clerk` | Chữ ký Svix (`svix-id`, `svix-timestamp`, `svix-signature`); xử lý `user.created`, `user.updated`, `user.deleted` |
+
+## Lịch sử gửi nhu cầu tuyển dụng cho trường
+
+Module này lưu snapshot các lần Lab gửi chỉ tiêu và JD cho nhà trường; không đăng hoặc sửa bài trên hệ thống của trường.
+
+| Phương thức | Đường dẫn | Quyền | Ghi chú |
+|---|---|---|---|
+| GET | `/api/recruitment-submissions?termCode=&trackId=&status=&from=&to=&q=` | ORGANIZER, LECTURER, LEAD | Danh sách tóm tắt; `from`/`to` là ISO-8601 Instant |
+| GET | `/api/recruitment-submissions/{id}` | ORGANIZER, LECTURER, LEAD | Chi tiết cùng các vị trí/JD |
+| POST | `/api/recruitment-submissions` | ORGANIZER | Tạo bản `DRAFT`; có thể truyền `replacesSubmissionId` của một bản `SENT` |
+| PUT | `/api/recruitment-submissions/{id}` | ORGANIZER | Chỉ sửa bản nháp; yêu cầu `version` |
+| DELETE | `/api/recruitment-submissions/{id}` | ORGANIZER | Chỉ xóa bản nháp |
+| POST | `/api/recruitment-submissions/{id}/mark-sent` | ORGANIZER | Chốt snapshot và khóa vĩnh viễn nội dung |
+| POST | `/api/recruitment-submissions/{id}/items` | ORGANIZER; LEAD đúng ngạch | Thêm vị trí/JD vào bản nháp |
+| PUT | `/api/recruitment-submission-items/{itemId}` | ORGANIZER; LEAD đúng ngạch | Sửa vị trí/JD nháp; yêu cầu `version` |
+| DELETE | `/api/recruitment-submission-items/{itemId}` | ORGANIZER; LEAD đúng ngạch | Xóa vị trí khỏi bản nháp |
+| POST | `/api/recruitment-submission-items/{itemId}/file?version=` | ORGANIZER; LEAD đúng ngạch | Multipart `file`, PDF/DOCX hợp lệ, tối đa 5 MB |
+| GET | `/api/recruitment-submission-items/{itemId}/file` | ORGANIZER, LECTURER, LEAD | Tải attachment, kèm SHA-256 và `nosniff` |
+
+Quy tắc chốt gửi: phải có ít nhất một vị trí; mỗi vị trí có chỉ tiêu từ 1–1000 và có nội dung hoặc file JD; phải có thời điểm gửi và đơn vị/người nhận. Bản `SENT` không sửa/xóa được, muốn điều chỉnh phải tạo bản bổ sung/thay thế mới.
+
+Mã lỗi: `SUBMISSION_LOCKED`, `SUBMISSION_EMPTY`, `JD_REQUIRED`, `INVALID_REPLACEMENT`, `INVALID_SENT_AT`, `INVALID_JD_FILE`, `JD_FILE_TOO_LARGE`, `STALE_DATA`.
