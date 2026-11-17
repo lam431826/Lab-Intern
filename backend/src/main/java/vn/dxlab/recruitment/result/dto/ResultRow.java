@@ -1,5 +1,7 @@
 package vn.dxlab.recruitment.result.dto;
 
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import vn.dxlab.recruitment.result.FinalStatus;
 
 import java.math.BigDecimal;
@@ -11,6 +13,7 @@ import java.math.BigDecimal;
  * @param rank        thứ hạng trong ngạch, chỉ xếp ứng viên đã phỏng vấn và có điểm tổng
  * @param suggestion  gợi ý theo điểm sàn và chỉ tiêu; kết luận thật nằm trong {@code decision}
  */
+@NullMarked
 public record ResultRow(
         Long candidateId,
         String studentCode,
@@ -20,13 +23,13 @@ public record ResultRow(
         int panelSize,
         long passVotes,
         long failVotes,
-        BigDecimal generalAverage,
-        BigDecimal professionalAverage,
-        BigDecimal total,
+        @Nullable BigDecimal generalAverage,
+        @Nullable BigDecimal professionalAverage,
+        @Nullable BigDecimal total,
         boolean meetsThreshold,
-        Integer rank,
-        FinalStatus suggestion,
-        DecisionDto decision) {
+        @Nullable Integer rank,
+        @Nullable FinalStatus suggestion,
+        @Nullable DecisionDto decision) {
 
     public boolean scoresComplete() {
         return "ATTENDED".equals(interview) && panelSize > 0 && submittedSheets >= panelSize;

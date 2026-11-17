@@ -1,8 +1,10 @@
 package vn.dxlab.recruitment.result.dto;
 
+import org.jspecify.annotations.NullMarked;
 import java.util.List;
 
 /** Tổng quan theo ngạch (theo quyền xem) và việc cần làm của người đang đăng nhập. */
+@NullMarked
 public record DashboardDto(List<TrackStats> tracks, MyTasks myTasks) {
 
     public record TrackStats(Long trackId, String trackCode, String trackName, int quota,
