@@ -33,6 +33,16 @@ Cần: JDK 21+, SQL Server 2022 (instance mặc định, đã bật mixed mode v
    mvnw verify
    ```
 
+## Chạy frontend trên máy dev
+
+```
+cd frontend
+npm ci
+npm run dev        # http://localhost:5173, cần backend chạy ở bước trên
+```
+
+Cấu hình Clerk lần đầu: [`docs/clerk-setup.md`](docs/clerk-setup.md). Chi tiết frontend: [`frontend/README.md`](frontend/README.md).
+
 ## Triển khai bằng Docker
 
 ```
