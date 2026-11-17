@@ -1,10 +1,12 @@
 package vn.dxlab.recruitment.scoring.dto;
 
+import org.jspecify.annotations.NullMarked;
 import vn.dxlab.recruitment.interview.Attendance;
 
 import java.util.List;
 
 /** Tiến độ chấm của hội đồng trong một ca. */
+@NullMarked
 public record SessionProgressDto(Long sessionId, int panelSize, List<CandidateProgress> candidates) {
 
     /** {@code pending}: tên thành viên hội đồng chưa nộp phiếu. */
