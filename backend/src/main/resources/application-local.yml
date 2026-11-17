@@ -8,6 +8,12 @@ spring:
     placeholders:
       devAdminEmail: ${DEV_ADMIN_EMAIL:}
 
+# http://localhost:8080/v3/api-docs — nguồn cho "npm run gen:api" ở frontend
+springdoc:
+  api-docs:
+    enabled: true
+  paths-to-match: /api/**
+
 logging:
   level:
     org.flywaydb: info

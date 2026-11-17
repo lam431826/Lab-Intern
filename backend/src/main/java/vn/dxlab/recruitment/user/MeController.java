@@ -1,5 +1,6 @@
 package vn.dxlab.recruitment.user;
 
+import org.jspecify.annotations.NullMarked;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,7 @@ public class MeController {
         return new MeDto(me.id(), me.email(), me.fullName(), me.role(), leadTracks);
     }
 
+    @NullMarked
     public record MeDto(Long id, String email, String fullName, Role role, List<String> leadTrackCodes) {
     }
 }

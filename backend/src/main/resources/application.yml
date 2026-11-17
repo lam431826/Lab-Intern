@@ -56,6 +56,11 @@ app:
     secret-key: ${CLERK_SECRET_KEY:}
     webhook-secret: ${CLERK_WEBHOOK_SECRET:}
 
+# OpenAPI tắt mặc định; profile local bật để frontend sinh kiểu dữ liệu
+springdoc:
+  api-docs:
+    enabled: false
+
 management:
   endpoints:
     web:
