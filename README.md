@@ -50,7 +50,7 @@ copy .env.example .env      # điền MSSQL_SA_PASSWORD, DB_PASSWORD, khóa Cler
 docker compose up -d --build
 ```
 
-Compose dựng SQL Server, tạo database và login (`db-init`), rồi chạy backend ở profile `prod`. Triển khai, Clerk production, sao lưu, khôi phục và xử lý sự cố: xem [`docs/runbook.md`](docs/runbook.md). API: [`docs/api.md`](docs/api.md).
+Compose dựng SQL Server, tạo database và login (`db-init`), chạy backend ở profile `prod` (`app`) và giao diện qua nginx (`web`, chuyển `/api` sang `app`). Mở `http://localhost:8080`. Triển khai, Clerk production, sao lưu, khôi phục và xử lý sự cố: xem [`docs/runbook.md`](docs/runbook.md). API: [`docs/api.md`](docs/api.md).
 
 Trên máy dev đã có SQL Server cài sẵn, cổng 1433 bị chiếm, nên đặt `MSSQL_HOST_PORT=14330` khi chạy compose.
 

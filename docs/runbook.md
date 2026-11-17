@@ -8,7 +8,8 @@ Tài liệu cho người triển khai và trông máy chủ. Mọi lệnh chạy
 |---|---|
 | `mssql` | SQL Server 2022 (bản Express, miễn phí). Dữ liệu nằm trong volume `mssql-data`, bản sao lưu nằm ở thư mục `./backup` |
 | `db-init` | Chạy một lần mỗi khi `up`: tạo database với collation không dấu và login ứng dụng, rồi thoát. Chạy lại không sao |
-| `app` | Backend Spring Boot, cổng `APP_PORT` (mặc định 8080). Lúc khởi động, Flyway tự áp dụng migration mới |
+| `app` | Backend Spring Boot. Không mở cổng ra ngoài, chỉ `web` gọi vào qua mạng nội bộ. Lúc khởi động, Flyway tự áp dụng migration mới |
+| `web` | nginx: phục vụ giao diện React và chuyển `/api` sang `app`, cổng `APP_PORT` (mặc định 8080). Trình duyệt chỉ thấy một origin nên không cần CORS |
 
 Cổng SQL Server chỉ mở cho chính máy chủ (`127.0.0.1:1433`), không mở ra mạng ngoài.
 
@@ -45,16 +46,19 @@ Cần: Docker Engine 24+ có Compose v2, máy chủ ra được Internet (để 
 
 ## 3. Reverse proxy và HTTPS
 
-Đặt Nginx hoặc Caddy phía trước, chuyển `/api` và `/actuator/health` vào `app:8080`. Profile `prod` đã bật `forward-headers-strategy`, nên ứng dụng nhận đúng địa chỉ gốc qua `X-Forwarded-*`.
+Container `web` đã phục vụ cả giao diện lẫn `/api`, gửi kèm header bảo mật và CSP. Phía trước chỉ cần một proxy lo HTTPS, chuyển mọi request vào `web`. Profile `prod` đã bật `forward-headers-strategy`, nên backend nhận đúng địa chỉ gốc qua `X-Forwarded-*`.
 
 Ví dụ Caddy (tự lấy chứng chỉ HTTPS):
 ```
 tuyendung.dxlab.vn {
-    handle /api/*    { reverse_proxy 127.0.0.1:8080 }
-    handle           { root * /srv/dxlab-frontend; try_files {path} /index.html; file_server }
+    reverse_proxy 127.0.0.1:8080
 }
 ```
-Khi đã có proxy, nên đổi cổng của `app` trong compose thành `127.0.0.1:8080:8080` để không ai vào thẳng cổng 8080.
+Khi đã có proxy, đổi cổng của `web` trong compose thành `127.0.0.1:8080:8080` để không ai vào thẳng cổng 8080 bằng HTTP.
+
+`CLERK_AZP` phải đúng là địa chỉ người dùng mở trên trình duyệt (ví dụ `https://tuyendung.dxlab.vn`); sai thì mọi request nhận 401. `APP_CORS_ORIGINS` không còn quan trọng vì giao diện và API cùng origin.
+
+**CSP** (file `frontend/nginx/security-headers.inc.template`) chỉ cho phép script và kết nối tới Frontend API của Clerk (`CLERK_ISSUER`), `cdn.protect.clerk.com` (chống bot), Cloudflare Turnstile và `clerk-telemetry.com`. Nếu Clerk đổi domain và trang kẹt ở "Đang tải…", mở DevTools → Console tìm lỗi "Refused to load", rồi bổ sung domain vào file này.
 
 ## 4. Cấu hình Clerk cho production
 
@@ -73,7 +77,7 @@ Khi đã có proxy, nên đổi cổng của `app` trong compose thành `127.0.0
 ```bash
 ./infra/backup/backup.sh            # luôn sao lưu trước khi cập nhật
 git pull
-docker compose up -d --build app
+docker compose up -d --build app web
 docker compose logs -f app          # xem Flyway áp dụng migration mới, đợi "Started"
 ```
 Migration không chạy được thì ứng dụng không khởi động, và Flyway rollback migration đó, nên dữ liệu cũ vẫn nguyên. Khi đó, đọc log, sửa lỗi rồi deploy lại, hoặc quay về phiên bản trước bằng `git checkout <tag>` rồi `up -d --build app`.
@@ -112,9 +116,11 @@ Script dừng `app`, khôi phục, nối lại user `dxlab_app` với login (c�
 | Flyway báo `Unable to acquire SQL Server application lock` | Có ai đã đặt `MSSQL_COLLATION` cho container. Bỏ biến đó; collation chỉ đặt ở cấp database |
 | Mọi request đều nhận 401 | Đồng hồ máy chủ lệch (token chỉ được lệch tối đa 30 giây), `CLERK_ISSUER` không phải của instance đang dùng, hoặc máy chủ không ra được Internet để tải JWKS |
 | Đăng nhập được nhưng nhận 403 | Email Clerk chưa có tài khoản trong hệ thống, tài khoản đã bị khóa, hoặc thiếu claim `email` (mục 4.2) |
+| Trang kẹt ở "Đang tải…" | DevTools → Console: lỗi "Refused to load" là CSP chặn một domain của Clerk (mục 3); "Failed to load Clerk JS" là mạng không tới được Clerk, trang sẽ hiện nút Tải lại |
+| Trang trắng hoặc báo thiếu cấu hình đăng nhập | `CLERK_PUBLISHABLE_KEY` của `web` trống: kiểm tra `VITE_CLERK_PUBLISHABLE_KEY` trong `.env`, rồi `docker compose up -d web` |
 | Webhook nhận 400 `INVALID_SIGNATURE` | `CLERK_WEBHOOK_SECRET` không khớp với endpoint trong Clerk |
 
-Xem log: `docker compose logs -f app`. Kiểm tra sống: `curl -fsS localhost:8080/actuator/health`.
+Xem log: `docker compose logs -f app web`. Kiểm tra sống: `curl -fsS localhost:8080/actuator/health` (đi qua `web` vào `app`).
 
 ## 9. Đổi mật khẩu
 
