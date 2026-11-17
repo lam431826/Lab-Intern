@@ -16,6 +16,7 @@ import { NAV } from '@/lib/nav'
 const PAGES: Record<string, LazyExoticComponent<ComponentType>> = {
   '/admin/users': lazy(() => import('@/features/admin/UsersPage').then((m) => ({ default: m.UsersPage }))),
   '/admin/tracks': lazy(() => import('@/features/admin/TracksPage').then((m) => ({ default: m.TracksPage }))),
+  '/results': lazy(() => import('@/features/results/ResultsPage').then((m) => ({ default: m.ResultsPage }))),
   '/scoring': lazy(() =>
     import('@/features/scoring/ScoringRoutes').then((m) => ({ default: m.ScoringRoutes })),
   ),
@@ -34,9 +35,7 @@ const PAGES: Record<string, LazyExoticComponent<ComponentType>> = {
 }
 
 /** Mốc kế hoạch sẽ làm các màn hình còn lại (docs/frontend-plan.md §5). */
-const MILESTONE: Record<string, string> = {
-  '/results': 'F7',
-}
+const MILESTONE: Record<string, string> = {}
 
 const featureRoutes: RouteObject[] = NAV.flatMap((g) => g.items)
   .filter((item) => item.to !== '/')

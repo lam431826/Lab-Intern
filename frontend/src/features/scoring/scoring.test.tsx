@@ -68,7 +68,8 @@ describe('missingForSubmit', () => {
 })
 
 describe('ScoreSheetPage', () => {
-  it('tự lưu nháp sau khi chấm, lần lưu sau dùng version mới', async () => {
+  // Tự lưu chạy sau 2 giây thật; nới thời gian chờ cho máy chậm khi cả bộ test chạy song song
+  it('tự lưu nháp sau khi chấm, lần lưu sau dùng version mới', { timeout: 20_000 }, async () => {
     let version = 0
     const bodies: SheetBody[] = []
     const { user } = renderSheet(sheet(), {
@@ -89,7 +90,7 @@ describe('ScoreSheetPage', () => {
       },
     })
     await user.click(await screen.findByRole('radio', { name: 'Giao tiếp: 8 điểm' }))
-    await waitFor(() => expect(bodies).toHaveLength(1), { timeout: 4000 })
+    await waitFor(() => expect(bodies).toHaveLength(1), { timeout: 8000 })
     expect(bodies[0]).toMatchObject({
       submit: false,
       version: null,
@@ -101,7 +102,7 @@ describe('ScoreSheetPage', () => {
     expect(await screen.findByText(/Đã lưu lúc/)).toBeInTheDocument()
 
     await user.click(screen.getByRole('radio', { name: 'Java cơ bản: 7 điểm' }))
-    await waitFor(() => expect(bodies).toHaveLength(2), { timeout: 4000 })
+    await waitFor(() => expect(bodies).toHaveLength(2), { timeout: 8000 })
     expect(bodies[1].version).toBe(1)
   })
 

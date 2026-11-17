@@ -1132,9 +1132,9 @@ export interface components {
     }
     DecisionDto: {
       /** Format: int64 */
-      id: number | null
-      /** @enum {string|null} */
-      finalStatus: 'PENDING' | 'HIRED' | 'WAITLIST' | 'TRANSFER' | 'REJECTED' | null
+      id: number
+      /** @enum {string} */
+      finalStatus: 'PENDING' | 'HIRED' | 'WAITLIST' | 'TRANSFER' | 'REJECTED'
       /** Format: int64 */
       transferTrackId: number | null
       transferTrackCode: string | null
@@ -1143,10 +1143,10 @@ export interface components {
       approvedByName: string | null
       /** Format: date-time */
       approvedAt: string | null
-      /** @enum {string|null} */
-      emailStatus: 'NOT_SENT' | 'SENT' | null
-      /** @enum {string|null} */
-      offerStatus: 'NONE' | 'ACCEPTED' | 'DECLINED' | null
+      /** @enum {string} */
+      emailStatus: 'NOT_SENT' | 'SENT'
+      /** @enum {string} */
+      offerStatus: 'NONE' | 'ACCEPTED' | 'DECLINED'
       /** Format: int32 */
       version: number
     }
@@ -1187,10 +1187,10 @@ export interface components {
     }
     ResultRow: {
       /** Format: int64 */
-      candidateId: number | null
-      studentCode: string | null
-      fullName: string | null
-      interview: string | null
+      candidateId: number
+      studentCode: string
+      fullName: string
+      interview: string
       /** Format: int32 */
       submittedSheets: number
       /** Format: int32 */
@@ -1211,19 +1211,19 @@ export interface components {
     }
     TrackResultDto: {
       /** Format: int64 */
-      trackId: number | null
-      trackCode: string | null
-      trackName: string | null
+      trackId: number
+      trackCode: string
+      trackName: string
       /** Format: int32 */
       quota: number
       /** Format: int64 */
       seatsTaken: number
       /** Format: int64 */
       seatsLeft: number
-      weightGeneral: number | null
-      weightProfessional: number | null
-      passThreshold: number | null
-      rows: components['schemas']['ResultRow'][] | null
+      weightGeneral: number
+      weightProfessional: number
+      passThreshold: number
+      rows: components['schemas']['ResultRow'][]
       /** Format: int64 */
       nextWaitlistCandidateId: number | null
     }
@@ -1311,8 +1311,8 @@ export interface components {
       sheetStatus: string
     }
     DashboardDto: {
-      tracks: components['schemas']['TrackStats'][] | null
-      myTasks: components['schemas']['MyTasks'] | null
+      tracks: components['schemas']['TrackStats'][]
+      myTasks: components['schemas']['MyTasks']
     }
     MyTasks: {
       /** Format: int64 */
@@ -1324,9 +1324,9 @@ export interface components {
     }
     TrackStats: {
       /** Format: int64 */
-      trackId: number | null
-      trackCode: string | null
-      trackName: string | null
+      trackId: number
+      trackCode: string
+      trackName: string
       /** Format: int32 */
       quota: number
       /** Format: int64 */
