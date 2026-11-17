@@ -1,5 +1,7 @@
 package vn.dxlab.recruitment.candidate.dto;
 
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import java.util.List;
 
 /**
@@ -12,10 +14,11 @@ import java.util.List;
  * @param updated   số hồ sơ đã có (trùng Mã SV) được cập nhật thông tin
  * @param unchanged số hồ sơ đã có, không thay đổi gì
  */
+@NullMarked
 public record ImportReport(boolean applied, boolean dryRun, int totalRows, int created, int updated, int unchanged,
                            List<RowError> errors) {
 
     /** @param row số dòng như Excel hiển thị (bắt đầu từ 1) */
-    public record RowError(int row, String studentCode, String message) {
+    public record RowError(int row, @Nullable String studentCode, String message) {
     }
 }

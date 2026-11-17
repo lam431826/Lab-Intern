@@ -1,5 +1,7 @@
 package vn.dxlab.recruitment.candidate.dto;
 
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import vn.dxlab.recruitment.candidate.ScreeningRules;
 import vn.dxlab.recruitment.candidate.ScreeningStatus;
 
@@ -15,16 +17,18 @@ import java.util.List;
  * @param scheduled   đã có lịch phỏng vấn đang hiệu lực
  * @param version     gửi kèm khi sàng lọc để phát hiện hai người sửa cùng lúc
  */
+@NullMarked
 public record CandidateDto(
-        Long id, String studentCode, String fullName, String email, String phone, String major,
+        Long id, String studentCode, String fullName, @Nullable String email, @Nullable String phone, @Nullable String major,
         Long trackId, String trackCode, String trackName,
-        String cvLink, String portfolioLink,
-        ScreeningStatus screeningStatus, String screeningReason,
-        Integer cvPersonalInfo, Integer cvExperience, Integer cvSkills, Integer cvProjects, Integer cvCertificates,
-        BigDecimal cvAverage,
+        @Nullable String cvLink, @Nullable String portfolioLink,
+        ScreeningStatus screeningStatus, @Nullable String screeningReason,
+        @Nullable Integer cvPersonalInfo, @Nullable Integer cvExperience, @Nullable Integer cvSkills,
+        @Nullable Integer cvProjects, @Nullable Integer cvCertificates,
+        @Nullable BigDecimal cvAverage,
         List<ScreeningRules.Flag> flags,
         Instant assignedAt, Instant slaDeadline, boolean overdue,
-        String screenedByName, Instant screenedAt,
+        @Nullable String screenedByName, @Nullable Instant screenedAt,
         boolean scheduled,
         int version) {
 }
