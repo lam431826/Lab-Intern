@@ -41,7 +41,7 @@ Cần: Docker Engine 24+ có Compose v2, máy chủ ra được Internet (để 
    docker compose ps          # app: healthy; db-init: exited (0)
    docker compose logs app | grep -E "Successfully applied|Started"
    ```
-5. **Đăng nhập lần đầu**: Người tổ chức đăng nhập Clerk bằng đúng email `BOOTSTRAP_ORGANIZER_EMAIL`, rồi vào mục Tài khoản để mời Giảng viên, Lead và Thành viên. Sau đó xóa giá trị `BOOTSTRAP_ORGANIZER_EMAIL` trong `.env`.
+5. **Đăng nhập lần đầu**: lúc khởi động, hệ thống tạo Người tổ chức và gửi lời mời Clerk tới `BOOTSTRAP_ORGANIZER_EMAIL`. Người tổ chức **bấm link trong thư mời** để đăng ký; Clerk ở chế độ Restricted nên đăng nhập thẳng sẽ bị chặn. Không nhận được thư thì mời tay trên Clerk Dashboard → Users → Invitations. Sau đó vào mục Tài khoản để mời Giảng viên, Lead và Thành viên. Sau đó xóa giá trị `BOOTSTRAP_ORGANIZER_EMAIL` trong `.env`.
 
 ## 3. Reverse proxy và HTTPS
 

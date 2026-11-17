@@ -71,7 +71,8 @@ BOOTSTRAP_ORGANIZER_EMAIL=<email của bạn>
    cd backend
    mvnw spring-boot:run -Dspring-boot.run.profiles=local
    ```
-   Log phải có dòng `Đã tạo tài khoản Người tổ chức đầu tiên cho <email>`. Nếu thấy lỗi `Thiếu cấu hình CLERK_ISSUER`, kiểm tra lại bước 5.
+   Log phải có hai dòng: `Đã tạo tài khoản Người tổ chức đầu tiên cho <email>` và `Đã gửi lời mời Clerk tới <email>`. Nếu thấy lỗi `Thiếu cấu hình CLERK_ISSUER`, kiểm tra lại bước 5.
+   **Mở thư mời của Clerk và bấm link trong thư.** Ở chế độ Restricted (bước 4), Clerk chỉ cho người đã được mời đăng ký, nên nếu đăng nhập thẳng ở trang chủ thì sẽ nhận lỗi "New sign-ups are currently restricted". Không thấy thư thì vào Dashboard → Users → Invitations để mời tay.
 2. Khi đã có frontend (F1): chạy `npm run dev` trong `frontend/`, mở http://localhost:5173 và đăng nhập Google bằng đúng email ở trên. Header phải hiện tên và vai trò **Người tổ chức**.
 3. Chưa có frontend thì kiểm tra nhanh bằng cách:
    - Đăng nhập vào trang Account Portal của Clerk (`https://<tên>.accounts.dev`).
@@ -99,6 +100,7 @@ Webhook đồng bộ email khi người dùng đổi email, và khóa tài kho�
 |---|---|
 | Mọi request trả 401 | `CLERK_ISSUER` không phải của instance đang dùng hoặc thừa dấu `/`; đồng hồ máy lệch quá 30 giây; `CLERK_AZP` khác địa chỉ đang mở frontend (ví dụ `127.0.0.1` thay vì `localhost`) |
 | Đăng nhập xong báo "Chưa được cấp quyền" | Thiếu claim `email` (bước 3), hoặc email đăng nhập khác `BOOTSTRAP_ORGANIZER_EMAIL` và chưa được mời |
+| "New sign-ups are currently restricted" khi đăng nhập lần đầu | Email chưa được mời trên Clerk. Mở link trong thư mời, hoặc mời tay ở Dashboard → Users → Invitations |
 | Không tạo Người tổ chức đầu tiên | Hệ thống đã có Người tổ chức đang hoạt động, hoặc `BOOTSTRAP_ORGANIZER_EMAIL` bị trống |
 | Gửi lời mời báo `CLERK_NOT_CONFIGURED` | Thiếu `CLERK_SECRET_KEY` |
 | Gửi lời mời báo `CLERK_INVITE_FAILED` | Secret key sai instance, hoặc email đã là người dùng của Clerk |
