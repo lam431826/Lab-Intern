@@ -872,32 +872,32 @@ export interface components {
     }
     PanelMemberDto: {
       /** Format: int64 */
-      userId: number | null
-      fullName: string | null
-      email: string | null
-      /** @enum {string|null} */
-      panelRole: 'LECTURER' | 'ORGANIZER' | 'LEAD' | 'ROTATING' | null
+      userId: number
+      fullName: string
+      email: string
+      /** @enum {string} */
+      panelRole: 'LECTURER' | 'ORGANIZER' | 'LEAD' | 'ROTATING'
     }
     SessionDto: {
       /** Format: int64 */
-      id: number | null
+      id: number
       /** Format: int64 */
-      trackId: number | null
-      trackCode: string | null
-      trackName: string | null
+      trackId: number
+      trackCode: string
+      trackName: string
       /** Format: date */
-      sessionDate: string | null
-      startTime: string | null
-      endTime: string | null
+      sessionDate: string
+      startTime: string
+      endTime: string
       room: string | null
       logSummary: string | null
-      panel: components['schemas']['PanelMemberDto'][] | null
-      slots: components['schemas']['SlotDto'][] | null
-      warnings: components['schemas']['SessionWarning'][] | null
+      panel: components['schemas']['PanelMemberDto'][]
+      slots: components['schemas']['SlotDto'][]
+      warnings: components['schemas']['SessionWarning'][]
     }
     SessionWarning: {
-      code: string | null
-      message: string | null
+      code: string
+      message: string
     }
     PanelRequest: {
       rotatingMemberIds: number[]
@@ -1181,9 +1181,9 @@ export interface components {
       candidateIds: number[] | null
     }
     AutoScheduleResult: {
-      scheduled: components['schemas']['SlotDto'][] | null
-      notScheduled: string[] | null
-      session: components['schemas']['SessionDto'] | null
+      scheduled: components['schemas']['SlotDto'][]
+      notScheduled: string[]
+      session: components['schemas']['SessionDto']
     }
     ResultRow: {
       /** Format: int64 */
@@ -1269,24 +1269,24 @@ export interface components {
     }
     CandidateProgress: {
       /** Format: int64 */
-      candidateId: number | null
-      studentCode: string | null
-      candidateName: string | null
-      timeLabel: string | null
-      /** @enum {string|null} */
-      attendance: 'PENDING' | 'ATTENDED' | 'ABSENT' | null
+      candidateId: number
+      studentCode: string
+      candidateName: string
+      timeLabel: string
+      /** @enum {string} */
+      attendance: 'PENDING' | 'ATTENDED' | 'ABSENT'
       /** Format: int32 */
       submitted: number
       /** Format: int32 */
       drafts: number
-      pending: string[] | null
+      pending: string[]
     }
     SessionProgressDto: {
       /** Format: int64 */
-      sessionId: number | null
+      sessionId: number
       /** Format: int32 */
       panelSize: number
-      candidates: components['schemas']['CandidateProgress'][] | null
+      candidates: components['schemas']['CandidateProgress'][]
     }
     MeDto: {
       /** Format: int64 */

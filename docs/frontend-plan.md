@@ -109,7 +109,7 @@ Mỗi mốc là một nhánh hoặc PR riêng, tách commit nhỏ, không có d�
 | **F2. Quản trị** | S3, S4, S5 | Tạo và mời tài khoản; sửa ngạch, tiêu chí, tham số; hiển thị đúng lỗi nghiệp vụ  **Xong 17/11/2026** (thử trên Chrome: tạo tài khoản, chặn tự đổi vai trò, gán Lead, thêm/xóa tiêu chí, đổi trọng số) |
 | **F3. Lịch sử gửi nhu cầu** | S6 | Tạo nháp, thêm vị trí và file JD, đánh dấu đã gửi; bản SENT chỉ đọc. **Xong 17/11/2026** (thử trên Chrome: tạo nháp, thêm vị trí, chặn chốt khi thiếu JD, tải file PDF, chốt gửi, tạo bản thay thế có sao chép file, xóa nháp) |
 | **F4. Hồ sơ và sàng lọc** | S7, S8, S9 | Nhập file mẫu 40 dòng, xem lỗi theo dòng; Lead sàng lọc; hai tab cùng sửa thì tab sau thấy thông báo `STALE_DATA`. **Xong 17/11/2026** (thử trên Chrome: nhập Excel báo lỗi đúng dòng rồi nhập thật, thêm hồ sơ, SLA, chấm CV và chốt Đạt, lưu liên tiếp không xung đột) |
-| **F5. Lịch phỏng vấn** | S10, S11, S17 (lịch) | Kịch bản: tạo ca, tự xếp, vắng PV1, dời sang PV2, điểm danh; cảnh báo hiển thị đúng |
+| **F5. Lịch phỏng vấn** | S10, S11, S17 (lịch) | Kịch bản: tạo ca, tự xếp, vắng PV1, dời sang PV2, điểm danh; cảnh báo hiển thị đúng. **Xong 17/11/2026** (thử trên Chrome: tạo ca, cảnh báo hội đồng/Lead, tự xếp 2 ứng viên slot 15 phút, điểm danh vắng, dời PV1 → PV2 giữ lịch cũ) |
 | **F6. Chấm điểm** | S12, S13, S14 | Chấm trọn một phiếu trên điện thoại (Chrome DevTools, iPhone SE); tự lưu nháp; nộp; `SUBMIT_FIRST` |
 | **F7. Kết quả** | S15, S16, S17 (kết quả) | Chạy lại bộ dữ liệu mẫu B8 (AI01–AI05) qua giao diện, số liệu khớp; luồng từ chối offer rồi gọi dự bị |
 | **F8. Dashboard và hoàn thiện** | S2; trạng thái rỗng, skeleton, kiểm tra accessibility cơ bản, tiêu đề trang | Mỗi vai trò đăng nhập vào là thấy ngay việc cần làm |
