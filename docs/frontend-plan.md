@@ -105,8 +105,8 @@ Mỗi mốc là một nhánh hoặc PR riêng, tách commit nhỏ, không có d�
 | Mốc | Nội dung | Nghiệm thu |
 |---|---|---|
 | **F0. Khung** | Vite, TS, ESLint, Prettier, Tailwind v4, shadcn/ui (style `base-nova`, font Geist có bộ ký tự tiếng Việt), Router, Query; `client.ts`; proxy `/api` sang `localhost:8080`; đọc `.env` ở gốc repo (`envDir: '..'`, Vite chỉ nhúng biến có tiền tố `VITE_`). Thêm springdoc vào backend (kiểm tra tương thích Spring Boot 4) và script `npm run gen:api` | `npm run build` sạch; gọi được `/api/me` qua proxy. **Xong 17/11/2026** |
-| **F1. Đăng nhập và khung app** | Clerk, `AccessGate`, `AppLayout`, menu theo vai trò, trang 403/404, `errorMessages.ts` | Đăng nhập thật bằng Clerk, thấy đúng tên và vai trò; tài khoản chưa cấp quyền thấy màn S1. **Cần khóa Clerk** |
-| **F2. Quản trị** | S3, S4, S5 | Tạo và mời tài khoản; sửa ngạch, tiêu chí, tham số; hiển thị đúng lỗi nghiệp vụ |
+| **F1. Đăng nhập và khung app** | Clerk, `AccessGate`, `AppLayout`, menu theo vai trò, trang 403/404, `errorMessages.ts` | Đăng nhập thật bằng Clerk, thấy đúng tên và vai trò; tài khoản chưa cấp quyền thấy màn S1. **Xong 17/11/2026** (đăng nhập thật bằng Google, tài khoản liên kết Clerk) |
+| **F2. Quản trị** | S3, S4, S5 | Tạo và mời tài khoản; sửa ngạch, tiêu chí, tham số; hiển thị đúng lỗi nghiệp vụ  **Xong 17/11/2026** (thử trên Chrome: tạo tài khoản, chặn tự đổi vai trò, gán Lead, thêm/xóa tiêu chí, đổi trọng số) |
 | **F3. Lịch sử gửi nhu cầu** | S6 | Tạo nháp, thêm vị trí và file JD, đánh dấu đã gửi; bản SENT chỉ đọc |
 | **F4. Hồ sơ và sàng lọc** | S7, S8, S9 | Nhập file mẫu 40 dòng, xem lỗi theo dòng; Lead sàng lọc; hai tab cùng sửa thì tab sau thấy thông báo `STALE_DATA` |
 | **F5. Lịch phỏng vấn** | S10, S11, S17 (lịch) | Kịch bản: tạo ca, tự xếp, vắng PV1, dời sang PV2, điểm danh; cảnh báo hiển thị đúng |

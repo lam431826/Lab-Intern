@@ -777,23 +777,23 @@ export type webhooks = Record<string, never>
 export interface components {
   schemas: {
     UpdateUserRequest: {
-      fullName: string | null
+      fullName: string
       /** @enum {string} */
       role: 'LECTURER' | 'ORGANIZER' | 'LEAD' | 'MEMBER'
       active: boolean
     }
     UserDto: {
       /** Format: int64 */
-      id: number | null
-      email: string | null
-      fullName: string | null
-      /** @enum {string|null} */
-      role: 'LECTURER' | 'ORGANIZER' | 'LEAD' | 'MEMBER' | null
+      id: number
+      email: string
+      fullName: string
+      /** @enum {string} */
+      role: 'LECTURER' | 'ORGANIZER' | 'LEAD' | 'MEMBER'
       active: boolean
       linked: boolean
     }
     UpdateTrackRequest: {
-      name: string | null
+      name: string
       /** Format: int32 */
       quota: number
       /** Format: int32 */
@@ -806,9 +806,9 @@ export interface components {
     }
     TrackDto: {
       /** Format: int64 */
-      id: number | null
-      code: string | null
-      name: string | null
+      id: number
+      code: string
+      name: string
       /** Format: int32 */
       quota: number
       /** Format: int32 */
@@ -906,8 +906,8 @@ export interface components {
       logSummary: string | null
     }
     UpdateSubmissionRequest: {
-      termCode: string | null
-      title: string | null
+      termCode: string
+      title: string
       recipient: string | null
       externalReference: string | null
       note: string | null
@@ -969,7 +969,7 @@ export interface components {
     SubmissionItemRequest: {
       /** Format: int64 */
       trackId: number
-      positionTitle: string | null
+      positionTitle: string
       /** Format: int32 */
       quota: number
       jdContent: string | null
@@ -982,7 +982,7 @@ export interface components {
     CriterionRequest: {
       /** Format: int64 */
       trackId: number | null
-      name: string | null
+      name: string
       description: string | null
       rubricLow: string | null
       rubricMid: string | null
@@ -992,12 +992,12 @@ export interface components {
     }
     CriterionDto: {
       /** Format: int64 */
-      id: number | null
+      id: number
       /** Format: int64 */
       trackId: number | null
-      /** @enum {string|null} */
-      group: 'GENERAL' | 'PROFESSIONAL' | null
-      name: string | null
+      /** @enum {string} */
+      group: 'GENERAL' | 'PROFESSIONAL'
+      name: string
       description: string | null
       rubricLow: string | null
       rubricMid: string | null
@@ -1007,8 +1007,8 @@ export interface components {
       active: boolean
     }
     CandidateRequest: {
-      studentCode: string | null
-      fullName: string | null
+      studentCode: string
+      fullName: string
       /** Format: email */
       email: string | null
       phone: string | null
@@ -1160,8 +1160,8 @@ export interface components {
     }
     CreateUserRequest: {
       /** Format: email */
-      email: string | null
-      fullName: string | null
+      email: string
+      fullName: string
       /** @enum {string} */
       role: 'LECTURER' | 'ORGANIZER' | 'LEAD' | 'MEMBER'
       sendInvite: boolean | null
@@ -1170,7 +1170,7 @@ export interface components {
       /** Format: int64 */
       sessionId: number
       startTime: string | null
-      reason: string | null
+      reason: string
     }
     SlotRequest: {
       /** Format: int64 */
@@ -1228,8 +1228,8 @@ export interface components {
       nextWaitlistCandidateId: number | null
     }
     CreateSubmissionRequest: {
-      termCode: string | null
-      title: string | null
+      termCode: string
+      title: string
       recipient: string | null
       externalReference: string | null
       note: string | null
@@ -1239,7 +1239,7 @@ export interface components {
     MarkSentRequest: {
       /** Format: date-time */
       sentAt: string
-      recipient: string | null
+      recipient: string
       externalReference: string | null
       /** Format: int32 */
       version: number
