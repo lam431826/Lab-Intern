@@ -1,11 +1,13 @@
 package vn.dxlab.recruitment.user.dto;
 
+import org.jspecify.annotations.NullMarked;
 import vn.dxlab.recruitment.user.AppUser;
 import vn.dxlab.recruitment.user.Role;
 
 /**
  * @param linked đã đăng nhập Clerk ít nhất một lần (đã gắn clerk_user_id); chưa thì có thể gửi lại lời mời
  */
+@NullMarked
 public record UserDto(Long id, String email, String fullName, Role role, boolean active, boolean linked) {
 
     public static UserDto from(AppUser u) {

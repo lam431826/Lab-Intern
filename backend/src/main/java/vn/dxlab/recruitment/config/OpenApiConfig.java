@@ -69,9 +69,7 @@ public class OpenApiConfig {
                 boolean nonNull = rc.getType().isPrimitive()
                         || (nullMarked && !rc.isAnnotationPresent(Nullable.class)
                                 && !rc.getAnnotatedType().isAnnotationPresent(Nullable.class))
-                        || rc.isAnnotationPresent(NotNull.class) || rc.isAnnotationPresent(NotBlank.class)
-                        || rc.isAnnotationPresent(NotEmpty.class)
-                        || (rc.getAccessor() != null && rc.getAccessor().isAnnotationPresent(NotNull.class));
+                        || hasNotNullConstraint(rc);
                 if (!nonNull) {
                     props.put(rc.getName(), nullable(prop));
                 }
@@ -79,6 +77,20 @@ public class OpenApiConfig {
             target.setProperties(props);
             target.setRequired(required);
             return resolved;
+        }
+
+        /**
+         * Annotation Jakarta không gắn lên record component (Target không có RECORD_COMPONENT) mà được
+         * chuyển sang accessor và kiểu (TYPE_USE), nên kiểm tra cả ba chỗ.
+         */
+        private static boolean hasNotNullConstraint(RecordComponent rc) {
+            for (Class<? extends java.lang.annotation.Annotation> a : List.of(NotNull.class, NotBlank.class, NotEmpty.class)) {
+                if (rc.isAnnotationPresent(a) || rc.getAnnotatedType().isAnnotationPresent(a)
+                        || (rc.getAccessor() != null && rc.getAccessor().isAnnotationPresent(a))) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         @SuppressWarnings({"rawtypes", "unchecked"})
