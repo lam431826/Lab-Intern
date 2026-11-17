@@ -13,7 +13,10 @@ function jsonResponse(status: number, body: unknown, headers: Record<string, str
 describe('createApiClient', () => {
   it('gửi Bearer token mới cho mỗi request và parse JSON', async () => {
     const fetch = vi.fn<Fetch>(async () => jsonResponse(200, { id: 1 }))
-    const getToken = vi.fn<() => Promise<string | null>>().mockResolvedValueOnce('t1').mockResolvedValueOnce('t2')
+    const getToken = vi
+      .fn<() => Promise<string | null>>()
+      .mockResolvedValueOnce('t1')
+      .mockResolvedValueOnce('t2')
     const api = createApiClient({ getToken, fetch })
 
     await api.get('/api/me')
