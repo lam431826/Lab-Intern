@@ -1,0 +1,9 @@
+# Include trong từng location: add_header trong location không kế thừa từ server.
+add_header X-Content-Type-Options "nosniff" always;
+add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+add_header X-Frame-Options "DENY" always;
+add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
+# Clerk: script và API ở Frontend API của instance, ảnh đại diện ở img.clerk.com,
+# chống bot qua cdn.protect.clerk.com và Cloudflare Turnstile, telemetry ở clerk-telemetry.com.
+# Thiếu cdn.protect.clerk.com thì Clerk chờ mãi script chống bot và trang kẹt ở "Đang tải…".
+add_header Content-Security-Policy "default-src 'self'; script-src 'self' ${CLERK_FRONTEND_API} https://cdn.protect.clerk.com https://challenges.cloudflare.com; connect-src 'self' ${CLERK_FRONTEND_API} https://*.protect.clerk.com https://clerk-telemetry.com; img-src 'self' data: https://img.clerk.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; frame-src https://challenges.cloudflare.com; worker-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'" always;

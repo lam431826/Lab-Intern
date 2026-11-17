@@ -66,6 +66,23 @@ services:
       DB_PORT: "1433"
       # Chứng chỉ tự ký của container SQL Server; kết nối vẫn mã hóa
       DB_TRUST_CERT: "true"
+    # Không mở cổng ra ngoài: chỉ service web gọi vào qua mạng nội bộ compose
+    expose:
+      - "8080"
+
+  # Giao diện + chuyển /api sang app: trình duyệt chỉ thấy một origin nên không cần CORS
+  web:
+    build: ./frontend
+    image: dxlab-recruitment-frontend:latest
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_healthy
+    environment:
+      BACKEND_URL: http://app:8080
+      # Khóa publishable công khai được; đọc lúc khởi động nên một image dùng cho mọi môi trường
+      CLERK_PUBLISHABLE_KEY: ${VITE_CLERK_PUBLISHABLE_KEY:?Thiếu VITE_CLERK_PUBLISHABLE_KEY trong .env}
+      CLERK_FRONTEND_API: ${CLERK_ISSUER:?Thiếu CLERK_ISSUER trong .env}
     ports:
       - "${APP_PORT:-8080}:8080"
 
