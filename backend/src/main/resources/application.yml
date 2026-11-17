@@ -34,6 +34,9 @@ spring:
         type:
           # Instant -> DATETIME2 thay vì DATETIMEOFFSET
           preferred_instant_jdbc_type: TIMESTAMP
+          # LocalDate/LocalTime (ngày ca, giờ slot) truyền thẳng cho driver, không đổi múi giờ.
+          # Thiếu dòng này, jdbc.time_zone=UTC làm 10:00 giờ VN lưu thành 02:00 (TemporalStorageIT).
+          java_time_use_direct_jdbc: true
 
   flyway:
     enabled: true
