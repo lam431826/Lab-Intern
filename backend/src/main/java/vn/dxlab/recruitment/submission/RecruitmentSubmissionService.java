@@ -135,6 +135,8 @@ public class RecruitmentSubmissionService {
         RecruitmentSubmissionItem item = new RecruitmentSubmissionItem();
         item.setSubmission(s);
         applyItem(item, track, req);
+        // Đồng bộ cả hai chiều quan hệ: markSent đọc s.getItems() trong cùng persistence context
+        s.getItems().add(item);
         items.saveAndFlush(item);
         return SubmissionItemDto.from(item);
     }
@@ -157,6 +159,9 @@ public class RecruitmentSubmissionService {
         RecruitmentSubmissionItem item = lockItem(itemId);
         requireDraft(item.getSubmission());
         requireCanEditTrack(item.getTrack().getId());
+        // Gỡ khỏi danh sách của bản gửi (orphanRemoval xóa dòng); nếu chỉ delete item thì
+        // cascade ALL từ danh sách còn giữ item có thể khiến Hibernate bỏ qua lệnh xóa
+        item.getSubmission().getItems().remove(item);
         items.delete(item);
         items.flush();
     }
