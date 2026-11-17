@@ -1,7 +1,10 @@
 package vn.dxlab.recruitment.submission.dto;
 
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import vn.dxlab.recruitment.submission.RecruitmentSubmissionItem;
 
+@NullMarked
 public record SubmissionItemDto(
         Long id,
         Long trackId,
@@ -9,14 +12,14 @@ public record SubmissionItemDto(
         String trackName,
         String positionTitle,
         int quota,
-        String jdContent,
-        String note,
+        @Nullable String jdContent,
+        @Nullable String note,
         int sortOrder,
         boolean hasFile,
-        String fileName,
-        String fileMimeType,
-        Long fileSize,
-        String fileSha256,
+        @Nullable String fileName,
+        @Nullable String fileMimeType,
+        @Nullable Long fileSize,
+        @Nullable String fileSha256,
         int version) {
 
     public static SubmissionItemDto from(RecruitmentSubmissionItem item) {
