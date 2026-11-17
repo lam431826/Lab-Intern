@@ -1093,10 +1093,10 @@ export interface components {
     }
     Item: {
       /** Format: int64 */
-      criterionId: number | null
-      /** @enum {string|null} */
-      group: 'GENERAL' | 'PROFESSIONAL' | null
-      name: string | null
+      criterionId: number
+      /** @enum {string} */
+      group: 'GENERAL' | 'PROFESSIONAL'
+      name: string
       description: string | null
       rubricLow: string | null
       rubricMid: string | null
@@ -1106,11 +1106,11 @@ export interface components {
     }
     ScoreSheetDto: {
       /** Format: int64 */
-      candidateId: number | null
-      studentCode: string | null
-      candidateName: string | null
-      trackCode: string | null
-      items: components['schemas']['Item'][] | null
+      candidateId: number
+      studentCode: string
+      candidateName: string
+      trackCode: string
+      items: components['schemas']['Item'][]
       comment: string | null
       /** @enum {string|null} */
       recommendation: 'PASS' | 'FAIL' | null
@@ -1299,16 +1299,16 @@ export interface components {
     }
     ScoringQueueItem: {
       /** Format: int64 */
-      candidateId: number | null
-      studentCode: string | null
-      candidateName: string | null
-      trackCode: string | null
+      candidateId: number
+      studentCode: string
+      candidateName: string
+      trackCode: string
       /** Format: int64 */
-      sessionId: number | null
+      sessionId: number
       /** Format: date */
-      sessionDate: string | null
-      timeLabel: string | null
-      sheetStatus: string | null
+      sessionDate: string
+      timeLabel: string
+      sheetStatus: string
     }
     DashboardDto: {
       tracks: components['schemas']['TrackStats'][] | null
@@ -1356,39 +1356,39 @@ export interface components {
     }
     CandidateScoresDto: {
       /** Format: int64 */
-      candidateId: number | null
+      candidateId: number
       /** Format: int32 */
       panelSize: number
       /** Format: int32 */
       submittedCount: number
-      criteria: components['schemas']['CriterionAverage'][] | null
+      criteria: components['schemas']['CriterionAverage'][]
       generalAverage: number | null
       professionalAverage: number | null
       total: number | null
-      evaluators: components['schemas']['EvaluatorSheet'][] | null
+      evaluators: components['schemas']['EvaluatorSheet'][]
     }
     CriterionAverage: {
       /** Format: int64 */
-      criterionId: number | null
-      /** @enum {string|null} */
-      group: 'GENERAL' | 'PROFESSIONAL' | null
-      name: string | null
+      criterionId: number
+      /** @enum {string} */
+      group: 'GENERAL' | 'PROFESSIONAL'
+      name: string
       average: number | null
       /** Format: int32 */
       count: number
     }
     EvaluatorSheet: {
       /** Format: int64 */
-      evaluatorId: number | null
-      name: string | null
+      evaluatorId: number
+      name: string
       /** Format: date-time */
-      submittedAt: string | null
-      /** @enum {string|null} */
-      recommendation: 'PASS' | 'FAIL' | null
+      submittedAt: string
+      /** @enum {string} */
+      recommendation: 'PASS' | 'FAIL'
       comment: string | null
       values: {
         [key: string]: number
-      } | null
+      }
     }
     HistoryEntryDto: {
       field: string
