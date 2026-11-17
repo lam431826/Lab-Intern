@@ -17,7 +17,8 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { blankToNull, handleFormError } from '@/lib/forms'
 import { useSaveItem, type SubmissionItem } from './api'
-import { TrackSelect, useEditableTracks } from './parts'
+import { TrackSelect } from '@/components/common/TrackSelect'
+import { useEditableTracks } from './parts'
 
 const schema = z.object({
   trackId: z.string().min(1, 'Chưa chọn ngạch'),

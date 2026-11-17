@@ -6,7 +6,6 @@ import { useApi } from '@/api/useApi'
 import { useMe } from '@/auth/useMe'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useTracks } from '@/features/admin/api'
 import { toastError } from '@/lib/errors'
 import { formatBytes } from '@/lib/format'
@@ -30,42 +29,6 @@ export function useEditableTracks() {
   return useMemo(
     () => (tracks.data ?? []).filter((t) => me.role === 'ORGANIZER' || me.leadTrackCodes.includes(t.code)),
     [tracks.data, me],
-  )
-}
-
-export function TrackSelect({
-  id,
-  value,
-  onChange,
-  options,
-  invalid,
-  allLabel,
-}: {
-  id?: string
-  value: string
-  onChange: (value: string) => void
-  options: { id: number; name: string }[]
-  invalid?: boolean
-  /** Có giá trị thì thêm lựa chọn "tất cả" (dùng cho bộ lọc), value = "ALL". */
-  allLabel?: string
-}) {
-  const items = [
-    ...(allLabel ? [{ value: 'ALL', label: allLabel }] : []),
-    ...options.map((t) => ({ value: String(t.id), label: t.name })),
-  ]
-  return (
-    <Select items={items} value={value} onValueChange={(v) => v && onChange(v)}>
-      <SelectTrigger id={id} className="w-full" aria-invalid={invalid} aria-label={id ? undefined : 'Ngạch'}>
-        <SelectValue placeholder="Chọn ngạch" />
-      </SelectTrigger>
-      <SelectContent>
-        {items.map((i) => (
-          <SelectItem key={i.value} value={i.value}>
-            {i.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
   )
 }
 

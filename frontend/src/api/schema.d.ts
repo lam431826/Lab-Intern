@@ -829,24 +829,24 @@ export interface components {
     }
     SlotDto: {
       /** Format: int64 */
-      id: number | null
+      id: number
       /** Format: int64 */
-      sessionId: number | null
+      sessionId: number
       /** Format: date */
-      sessionDate: string | null
+      sessionDate: string
       room: string | null
       /** Format: int64 */
-      candidateId: number | null
-      studentCode: string | null
-      candidateName: string | null
-      startTime: string | null
-      endTime: string | null
-      timeLabel: string | null
-      /** @enum {string|null} */
-      slotType: 'PV1' | 'PV2' | null
+      candidateId: number
+      studentCode: string
+      candidateName: string
+      startTime: string
+      endTime: string
+      timeLabel: string
+      /** @enum {string} */
+      slotType: 'PV1' | 'PV2'
       active: boolean
-      /** @enum {string|null} */
-      attendance: 'PENDING' | 'ATTENDED' | 'ABSENT' | null
+      /** @enum {string} */
+      attendance: 'PENDING' | 'ATTENDED' | 'ABSENT'
       note: string | null
       /** Format: int64 */
       replacedById: number | null
@@ -1020,20 +1020,20 @@ export interface components {
     }
     CandidateDto: {
       /** Format: int64 */
-      id: number | null
-      studentCode: string | null
-      fullName: string | null
+      id: number
+      studentCode: string
+      fullName: string
       email: string | null
       phone: string | null
       major: string | null
       /** Format: int64 */
-      trackId: number | null
-      trackCode: string | null
-      trackName: string | null
+      trackId: number
+      trackCode: string
+      trackName: string
       cvLink: string | null
       portfolioLink: string | null
-      /** @enum {string|null} */
-      screeningStatus: 'PENDING' | 'PASSED' | 'REJECTED' | null
+      /** @enum {string} */
+      screeningStatus: 'PENDING' | 'PASSED' | 'REJECTED'
       screeningReason: string | null
       /** Format: int32 */
       cvPersonalInfo: number | null
@@ -1046,11 +1046,11 @@ export interface components {
       /** Format: int32 */
       cvCertificates: number | null
       cvAverage: number | null
-      flags: ('MISSING_CV' | 'INVALID_CV_LINK' | 'MISSING_PORTFOLIO' | 'INVALID_PORTFOLIO_LINK')[] | null
+      flags: ('MISSING_CV' | 'INVALID_CV_LINK' | 'MISSING_PORTFOLIO' | 'INVALID_PORTFOLIO_LINK')[]
       /** Format: date-time */
-      assignedAt: string | null
+      assignedAt: string
       /** Format: date-time */
-      slaDeadline: string | null
+      slaDeadline: string
       overdue: boolean
       screenedByName: string | null
       /** Format: date-time */
@@ -1259,13 +1259,13 @@ export interface components {
       updated: number
       /** Format: int32 */
       unchanged: number
-      errors: components['schemas']['RowError'][] | null
+      errors: components['schemas']['RowError'][]
     }
     RowError: {
       /** Format: int32 */
       row: number
       studentCode: string | null
-      message: string | null
+      message: string
     }
     CandidateProgress: {
       /** Format: int64 */
@@ -1391,19 +1391,19 @@ export interface components {
       } | null
     }
     HistoryEntryDto: {
-      field: string | null
+      field: string
       oldValue: string | null
       newValue: string | null
       note: string | null
       changedByName: string | null
       /** Format: date-time */
-      changedAt: string | null
+      changedAt: string
     }
     TrackScreeningSummary: {
       /** Format: int64 */
-      trackId: number | null
-      trackCode: string | null
-      trackName: string | null
+      trackId: number
+      trackCode: string
+      trackName: string
       /** Format: int64 */
       total: number
       /** Format: int64 */

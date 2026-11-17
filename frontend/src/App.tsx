@@ -16,6 +16,9 @@ import { NAV } from '@/lib/nav'
 const PAGES: Record<string, LazyExoticComponent<ComponentType>> = {
   '/admin/users': lazy(() => import('@/features/admin/UsersPage').then((m) => ({ default: m.UsersPage }))),
   '/admin/tracks': lazy(() => import('@/features/admin/TracksPage').then((m) => ({ default: m.TracksPage }))),
+  '/candidates': lazy(() =>
+    import('@/features/candidates/CandidatesRoutes').then((m) => ({ default: m.CandidatesRoutes })),
+  ),
   '/submissions': lazy(() =>
     import('@/features/submissions/SubmissionsRoutes').then((m) => ({ default: m.SubmissionsRoutes })),
   ),
@@ -28,7 +31,6 @@ const PAGES: Record<string, LazyExoticComponent<ComponentType>> = {
 const MILESTONE: Record<string, string> = {
   '/scoring': 'F6',
   '/sessions': 'F5',
-  '/candidates': 'F4',
   '/results': 'F7',
 }
 

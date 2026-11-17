@@ -11,7 +11,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { useTracks } from '@/features/admin/api'
 import { formatDateTime } from '@/lib/format'
 import { STATUS_LABELS, useSubmissions, type SubmissionFilter, type SubmissionStatus } from './api'
-import { StatusBadge, TrackSelect } from './parts'
+import { TrackSelect } from '@/components/common/TrackSelect'
+import { StatusBadge } from './parts'
 import { SubmissionFormDialog } from './SubmissionFormDialog'
 
 const STATUS_ITEMS = [
