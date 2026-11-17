@@ -1,4 +1,4 @@
-import { ClerkProvider, useAuth } from '@clerk/react'
+import { ClerkProvider, useAuth, useClerk } from '@clerk/react'
 import { viVN } from '@clerk/localizations'
 import { shadcn } from '@clerk/ui/themes'
 import { useQueryClient } from '@tanstack/react-query'
@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, type ReactNode } from 'react'
 import { Outlet, useNavigate } from 'react-router'
 import { ApiProvider } from '@/api/ApiProvider'
 import { config } from '@/lib/config'
-import { ConfigErrorPage } from '@/app/pages/StatusPages'
+import { AuthLoadErrorPage, ConfigErrorPage } from '@/app/pages/StatusPages'
 
 /** Route gốc: Clerk dùng điều hướng của React Router; API lấy token từ phiên Clerk. */
 export function ClerkRoot() {
@@ -36,6 +36,7 @@ export function ClerkRoot() {
 
 function ClerkApi({ children }: { children: ReactNode }) {
   const { getToken, userId } = useAuth()
+  const { status } = useClerk()
   const queryClient = useQueryClient()
   const lastUser = useRef(userId)
 
@@ -48,5 +49,7 @@ function ClerkApi({ children }: { children: ReactNode }) {
   }, [userId, queryClient])
 
   const tokenProvider = useCallback(() => getToken(), [getToken])
+  // Không tải được script Clerk (mạng chập chờn, bị chặn): báo rõ thay vì kẹt ở "Đang tải…"
+  if (status === 'error') return <AuthLoadErrorPage />
   return <ApiProvider getToken={tokenProvider}>{children}</ApiProvider>
 }

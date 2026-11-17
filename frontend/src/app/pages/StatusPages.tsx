@@ -118,6 +118,27 @@ export function LoadErrorPage({ error, onRetry }: { error: unknown; onRetry: () 
   )
 }
 
+/** Script đăng nhập Clerk không tải được. Không dùng hook Clerk vì Clerk chưa sẵn sàng. */
+export function AuthLoadErrorPage() {
+  return (
+    <CenteredCard
+      icon={<WifiOff className="size-8" aria-hidden />}
+      title="Không tải được phần đăng nhập"
+      description="Kết nối tới dịch vụ đăng nhập Clerk bị gián đoạn."
+      footer={
+        <Button onClick={() => window.location.reload()}>
+          <RefreshCw aria-hidden /> Tải lại trang
+        </Button>
+      }
+    >
+      <p className="text-muted-foreground">
+        Kiểm tra kết nối mạng rồi tải lại trang. Nếu đang dùng trình chặn quảng cáo hoặc mạng nội bộ chặn tên
+        miền *.clerk.accounts.dev, hãy cho phép tên miền này.
+      </p>
+    </CenteredCard>
+  )
+}
+
 /** Thiếu VITE_CLERK_PUBLISHABLE_KEY (dev) hoặc CLERK_PUBLISHABLE_KEY của container (prod). Không dùng hook Clerk. */
 export function ConfigErrorPage() {
   return (
