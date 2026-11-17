@@ -1,4 +1,5 @@
 import { UserButton } from '@clerk/react'
+import { useEffect } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router'
 import { useMe } from '@/auth/useMe'
 import { Badge } from '@/components/ui/badge'
@@ -35,6 +36,12 @@ export function AppLayout() {
   const me = useMe()
   const { pathname } = useLocation()
   const groups = navFor(me.role)
+  const title = currentTitle(pathname)
+
+  // Tiêu đề tab trình duyệt theo trang (dễ phân biệt khi mở nhiều tab, trình đọc màn hình đọc được)
+  useEffect(() => {
+    document.title = title ? `${title} · Tuyển dụng DX Lab` : 'Tuyển dụng DX Lab'
+  }, [title])
 
   return (
     <SidebarProvider>
@@ -84,7 +91,7 @@ export function AppLayout() {
         <header className="sticky top-0 z-10 flex h-14 items-center gap-2 border-b bg-background px-3 sm:px-4">
           <SidebarTrigger aria-label="Mở hoặc thu gọn menu" />
           <Separator orientation="vertical" className="mx-1 h-5" />
-          <h1 className="truncate text-sm font-semibold sm:text-base">{currentTitle(pathname)}</h1>
+          <h1 className="truncate text-sm font-semibold sm:text-base">{title}</h1>
           <div className="ml-auto flex items-center gap-2">
             <Badge variant="secondary" className="hidden sm:inline-flex">
               {ROLE_LABELS[me.role]}
