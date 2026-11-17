@@ -16,6 +16,9 @@ import { NAV } from '@/lib/nav'
 const PAGES: Record<string, LazyExoticComponent<ComponentType>> = {
   '/admin/users': lazy(() => import('@/features/admin/UsersPage').then((m) => ({ default: m.UsersPage }))),
   '/admin/tracks': lazy(() => import('@/features/admin/TracksPage').then((m) => ({ default: m.TracksPage }))),
+  '/submissions': lazy(() =>
+    import('@/features/submissions/SubmissionsRoutes').then((m) => ({ default: m.SubmissionsRoutes })),
+  ),
   '/admin/settings': lazy(() =>
     import('@/features/admin/SettingsPage').then((m) => ({ default: m.SettingsPage })),
   ),
@@ -27,7 +30,6 @@ const MILESTONE: Record<string, string> = {
   '/sessions': 'F5',
   '/candidates': 'F4',
   '/results': 'F7',
-  '/submissions': 'F3',
 }
 
 const featureRoutes: RouteObject[] = NAV.flatMap((g) => g.items)

@@ -10,7 +10,8 @@ import { ME_KEY, type Me } from '@/auth/useMe'
 import { Toaster } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
 
-export type Handler = (body: unknown) => [status: number, json?: unknown]
+/** Trả [status, json] cho API JSON, hoặc một Response tùy ý (ví dụ file tải về). */
+export type Handler = (body: unknown) => [status: number, json?: unknown] | Response
 
 export interface RecordedCall {
   method: string
@@ -33,7 +34,11 @@ export const ME_ORGANIZER: Me = {
  */
 export function renderWithApp(
   ui: ReactNode,
-  { me = ME_ORGANIZER, routes = {} }: { me?: Me; routes?: Record<string, Handler> } = {},
+  {
+    me = ME_ORGANIZER,
+    routes = {},
+    path = '/',
+  }: { me?: Me; routes?: Record<string, Handler>; path?: string } = {},
 ) {
   const queryClient = createQueryClient()
   queryClient.setQueryData(ME_KEY, me)
@@ -47,7 +52,11 @@ export function renderWithApp(
       const body = typeof init?.body === 'string' ? JSON.parse(init.body) : init?.body
       calls.push({ method, path: url.pathname, query: url.searchParams, body })
       const handler = routes[`${method} ${url.pathname}`]
-      const [status, json] = handler ? handler(body) : [404, { code: 'NOT_FOUND', message: 'Không tìm thấy' }]
+      const result: ReturnType<Handler> = handler
+        ? handler(body)
+        : [404, { code: 'NOT_FOUND', message: 'Không tìm thấy' }]
+      if (result instanceof Response) return result
+      const [status, json] = result
       return new Response(json === undefined ? null : JSON.stringify(json), {
         status,
         headers: { 'Content-Type': 'application/json' },
@@ -59,7 +68,7 @@ export function renderWithApp(
   const result = render(
     <QueryClientProvider client={queryClient}>
       <ApiProvider getToken={async () => 'test-token'}>
-        <MemoryRouter>
+        <MemoryRouter initialEntries={[path]}>
           <TooltipProvider>{ui}</TooltipProvider>
         </MemoryRouter>
       </ApiProvider>

@@ -47,3 +47,24 @@ export function formatScore(value: number | null | undefined): string {
     ? '—'
     : value.toLocaleString('vi-VN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 }
+
+/** 1536 → "1,5 KB"; dùng cho file JD. */
+export function formatBytes(bytes: number | null | undefined): string {
+  if (bytes == null) return ''
+  if (bytes < 1024) return `${bytes} B`
+  const units = ['KB', 'MB', 'GB']
+  let v = bytes / 1024
+  let i = 0
+  while (v >= 1024 && i < units.length - 1) {
+    v /= 1024
+    i++
+  }
+  return `${v.toLocaleString('vi-VN', { maximumFractionDigits: 1 })} ${units[i]}`
+}
+
+const pad = (n: number) => String(n).padStart(2, '0')
+
+/** Giá trị cho ô datetime-local theo giờ máy người dùng: "2026-11-17T14:05". */
+export function toDateTimeLocal(date: Date): string {
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`
+}

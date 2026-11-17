@@ -916,11 +916,11 @@ export interface components {
     }
     SubmissionDto: {
       /** Format: int64 */
-      id: number | null
-      termCode: string | null
-      title: string | null
-      /** @enum {string|null} */
-      status: 'DRAFT' | 'SENT' | null
+      id: number
+      termCode: string
+      title: string
+      /** @enum {string} */
+      status: 'DRAFT' | 'SENT'
       /** Format: date-time */
       sentAt: string | null
       recipient: string | null
@@ -939,18 +939,18 @@ export interface components {
       /** Format: int32 */
       version: number
       /** Format: date-time */
-      createdAt: string | null
+      createdAt: string
       /** Format: date-time */
-      updatedAt: string | null
+      updatedAt: string
     }
     SubmissionItemDto: {
       /** Format: int64 */
-      id: number | null
+      id: number
       /** Format: int64 */
-      trackId: number | null
-      trackCode: string | null
-      trackName: string | null
-      positionTitle: string | null
+      trackId: number
+      trackCode: string
+      trackName: string
+      positionTitle: string
       /** Format: int32 */
       quota: number
       jdContent: string | null
