@@ -110,10 +110,9 @@ Mỗi lỗi đều có test tái hiện, và đã xác nhận test fail trước
 | 1 | Thử trên giao diện thật các thao tác của Giảng viên (phê duyệt, mở lại kết luận) và luồng offer, gọi dự bị; hiện mới có unit test | Một tài khoản Giảng viên để đăng nhập thử |
 | 2 | Test e2e tự động bằng Playwright (3 kịch bản trong kế hoạch) | Tạo tài khoản test trên Clerk Development |
 | 3 | Kiểm tra giao diện trên điện thoại thật (phiếu chấm, điểm danh) | Không |
-| 4 | Thu hồi một lời mời Clerk thừa (tạo lúc chạy thử stack Docker ngày 17/11) | Chờ quyết định |
-| 5 | Đổi secret key Clerk trước khi lên production (khóa dev đã từng được gửi qua chat); production dùng instance riêng | Trước khi triển khai |
-| 6 | Gửi email kết quả tự động (hiện chỉ ghi nhận trạng thái "đã gửi") | Chọn dịch vụ gửi mail của lab |
-| 7 | Triển khai lên máy chủ lab, cấu hình HTTPS và webhook Clerk production | Máy chủ và tên miền |
+| 4 | Đổi secret key Clerk trước khi lên production (khóa dev đã từng được gửi qua chat); production dùng instance riêng | Trước khi triển khai |
+| 5 | Gửi email kết quả tự động (hiện chỉ ghi nhận trạng thái "đã gửi") | Chọn dịch vụ gửi mail của lab |
+| 6 | Triển khai lên máy chủ lab, cấu hình HTTPS và webhook Clerk production | Máy chủ và tên miền |
 
 ## 6. Quy tắc nghiệp vụ cần lab xác nhận
 
